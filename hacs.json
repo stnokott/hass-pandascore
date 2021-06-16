@@ -1,0 +1,7 @@
+{
+  "name": "Pandascore Sensor",
+  "content_in_root": false,
+  "render_readme": true,
+  "domains": ["sensor"],
+  "homeassistant": "0.100.0"
+}
