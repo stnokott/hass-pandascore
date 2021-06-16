@@ -118,12 +118,14 @@ class UpcomingGamesSensor(Entity):
     @property
     def device_state_attributes(self):
         return {
-            ATTR_GAMES_LIST: {
-                ATTR_GAME_NAME: game.name,
-                ATTR_GAME_BEGIN_AT: game.begin_at,
-                ATTR_GAME_STREAM_URL: game.stream_url,
-            }
-            for game in self._upcoming_games
+            ATTR_GAMES_LIST: [
+                {
+                    ATTR_GAME_NAME: game.name,
+                    ATTR_GAME_BEGIN_AT: game.begin_at,
+                    ATTR_GAME_STREAM_URL: game.stream_url,
+                }
+                for game in self._upcoming_games
+            ]
         }
 
     def _update(self):
@@ -150,7 +152,7 @@ class APIManager:
     def get_upcoming_games(
         self, filter_opponent_id: str, max_count: int
     ) -> List[UpcomingGame]:
-        url = urljoin(ENDPOINT_BASE, self._game, ENDPOINT_UPCOMING_MATCHES)
+        url = ENDPOINT_BASE + self._game + ENDPOINT_UPCOMING_MATCHES
 
         params = {"per_page": max_count}
         if len(filter_opponent_id) > 0:
@@ -167,7 +169,9 @@ class APIManager:
                 response_json = r.json()
                 for game in response_json:
                     result.append(
-                        UpcomingGame(game["name"], game["begin_at"], game["stream_url"])
+                        UpcomingGame(
+                            game["name"], game["begin_at"], game["official_stream_url"]
+                        )
                     )
             except json.JSONDecodeError as e1:
                 LOGGER.warning(f"Could not parse response as JSON: {e1}")

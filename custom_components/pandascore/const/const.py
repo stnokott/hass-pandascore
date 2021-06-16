@@ -1,6 +1,6 @@
 import logging
 
-ENDPOINT_BASE = "https://api.pandascore.co"
+ENDPOINT_BASE = "https://api.pandascore.co/"
 ENDPOINT_UPCOMING_MATCHES = "/matches/upcoming"
 
 CONF_API_KEY = "api_key"
