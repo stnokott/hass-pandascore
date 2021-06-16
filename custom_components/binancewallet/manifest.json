@@ -1,0 +1,11 @@
+{
+  "domain": "pandascore",
+  "name": "Pandascore",
+  "version": "0.0.1",
+  "documentation": "https://github.com/stnokott/hass-pandascore",
+  "dependencies": [],
+  "codeowners": [
+    "@stnokott"
+  ],
+  "requirements": []
+}
