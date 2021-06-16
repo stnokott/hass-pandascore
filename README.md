@@ -26,6 +26,7 @@
     - platform: pandascore
       api_key: !secret pandascore_api_key  (required)
       game: "r6siege"                      (required, see below for supported values)
+      filter_team: "G2"                    (optional, filter results to team)
       max_upcoming: 5                      (optional, default=5, amount of upcoming games to retrieve per call, max. 100)
       refresh_interval: 60                 (optional, default=60, refresh interval in minutes)
 ```

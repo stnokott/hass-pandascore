@@ -1,7 +1,6 @@
-import logging
-
 ENDPOINT_BASE = "https://api.pandascore.co/"
 ENDPOINT_UPCOMING_MATCHES = "/matches/upcoming"
+ENDPOINT_TEAMS = "/teams"
 
 CONF_API_KEY = "api_key"
 CONF_GAME = "game"
@@ -17,6 +16,7 @@ CONF_SUPPORTED_GAMES = {
     "fifa": "FIFA",
     "valorant": "Valorant",
 }
+CONF_FILTER_TEAM = "filter_team"
 CONF_MAX_UPCOMING_GAMES = "max_upcoming"
 CONF_REFRESH_INTERVAL = "refresh_interval"
 
@@ -28,5 +28,5 @@ ATTR_GAMES_LIST = "games"
 ATTR_GAME_NAME = "name"
 ATTR_GAME_BEGIN_AT = "begins_at"
 ATTR_GAME_STREAM_URL = "stream_url"
-
-LOGGER = logging.getLogger(__name__)
+ATTR_GAME_LEAGUE = "league"
+ATTR_GAME_TOURNAMENT = "stage"
