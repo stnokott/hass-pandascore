@@ -25,6 +25,7 @@ from .const.const import (
     ATTR_GAME_NAME,
     ATTR_GAME_BEGIN_AT,
     ATTR_GAME_STREAM_URL,
+    CONG_SUPPORTED_GAMES,
 )
 
 from homeassistant.components.sensor import PLATFORM_SCHEMA
@@ -42,7 +43,7 @@ import requests
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
         vol.Required(CONF_API_KEY): cv.string,
-        vol.Required(CONF_GAME): cv.enum(EnumGames),
+        vol.Required(CONF_GAME): vol.In(CONG_SUPPORTED_GAMES),
         vol.Optional(CONF_MAX_UPCOMING_GAMES, default=5): cv.positive_int,
         vol.Optional(CONF_REFRESH_INTERVAL, default=60): cv.positive_int,
     }
