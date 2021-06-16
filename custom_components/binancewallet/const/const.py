@@ -1,4 +1,3 @@
-import enum
 import logging
 
 ENDPOINT_BASE = "https://api.pandascore.co"
