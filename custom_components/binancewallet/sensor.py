@@ -93,6 +93,7 @@ class UpcomingGamesSensor(Entity):
         self._name = (
             f"{SENSOR_NAME_PREFIX} {CONF_SUPPORTED_GAMES[game]} {SENSOR_NAME_UPCOMING}"
         )
+        self._upcoming_games: List[UpcomingGame] = []
         self._state: Optional[int] = None
         self._wallet = APIManager(api_key, game)
         self._max_upcoming = max_upcoming
