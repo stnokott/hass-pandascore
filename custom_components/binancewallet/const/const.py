@@ -6,18 +6,18 @@ ENDPOINT_UPCOMING_MATCHES = "/matches/upcoming"
 
 CONF_API_KEY = "api_key"
 CONF_GAME = "game"
-CONG_SUPPORTED_GAMES = [
-    "codmw",
-    "csgo",
-    "dota2",
-    "lol",
-    "pubg",
-    "ow",
-    "rl",
-    "r6siege",
-    "fifa",
-    "valorant"
-]
+CONF_SUPPORTED_GAMES = {
+    "codmw": "Call of Duty: MW",
+    "csgo": "CS:GO",
+    "dota2": "DOTA 2",
+    "lol": "LoL",
+    "pubg": "PUBG",
+    "ow": "Overwatch",
+    "rl": "RocketLeague",
+    "r6siege": "Rainbow Six Siege",
+    "fifa": "FIFA",
+    "valorant": "Valorant",
+}
 CONF_MAX_UPCOMING_GAMES = "max_upcoming"
 CONF_REFRESH_INTERVAL = "refresh_interval"
 
