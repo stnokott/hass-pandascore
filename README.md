@@ -24,10 +24,10 @@
 ```Configuration.yaml:
   sensor:
     - platform: pandascore
-      api_key: "xxxxxxxxxxx"            (required)
-      game: "r6siege"                   (required, see below for supported values)
-      max_upcoming: 5                   (optional, default=5, amount of upcoming games to retrieve per call, max. 100)
-      refresh_interval: 60              (optional, default=60, refresh interval in minutes)
+      api_key: !secret pandascore_api_key  (required)
+      game: "r6siege"                      (required, see below for supported values)
+      max_upcoming: 5                      (optional, default=5, amount of upcoming games to retrieve per call, max. 100)
+      refresh_interval: 60                 (optional, default=60, refresh interval in minutes)
 ```
 
 ### Supported games
