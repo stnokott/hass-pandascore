@@ -3,17 +3,22 @@
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/custom-components/hacs)
 ### Powered by Pandascore API
 
-#### Provides information about upcoming esports games from Pandascore
+#### Provides information about upcoming esports matches from Pandascore
 
 ### Features
-- Count of total upcoming games as value
-- List of upcoming games as attribute
+- Details about upcoming matches for a game
+- Filter by team
 
+### Provided Data
+#### Value
+- Count of total upcoming games
 #### Attributes
 - `games[]`: List of upcoming games
   - `name`: Name of match, e.g. "G2 vs Disrupt"
   - `begin_at`: Expected match start in ISO 8601 format
   - `stream_url`: URL of stream (e.g. Twitch) for this game
+  - `league`: League of match (e.g. European League)
+  - `stage`: Stage of match (e.g. Group Stage 1)
 
 ### Configuration
 - First, create an account at [Pandascore](https://app.pandascore.co/signup) (the free tier allows for up to 1000 calls per hour which should suffice in most cases).
