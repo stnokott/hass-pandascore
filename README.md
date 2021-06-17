@@ -14,11 +14,12 @@
 - Count of total upcoming games
 #### Attributes
 - `games[]`: List of upcoming games
-  - `name`: Name of match, e.g. "G2 vs Disrupt"
+  - `opponents[]`: List of opponent names
   - `begin_at`: Expected match start in ISO 8601 format
   - `stream_url`: URL of stream (e.g. Twitch) for this game
-  - `league`: League of match (e.g. European League)
-  - `stage`: Stage of match (e.g. Group Stage 1)
+  - `league`: e.g. Asia-Pacific League
+  - `tournament`: e.g. Group Stage
+  - `series`: e.g. South Division Stage 2 (empty for some leagues)
 
 ### Configuration
 - First, create an account at [Pandascore](https://app.pandascore.co/signup) (the free tier allows for up to 1000 calls per hour which should suffice in most cases).

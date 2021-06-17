@@ -21,7 +21,6 @@ from .const.const import (
     UNIQUE_ID_UPCOMING,
     SENSOR_NAME_UPCOMING,
     CONF_MAX_UPCOMING_GAMES,
-    ATTR_GAME_NAME,
     ATTR_GAME_BEGIN_AT,
     ATTR_GAME_STREAM_URL,
     CONF_SUPPORTED_GAMES,
@@ -29,6 +28,8 @@ from .const.const import (
     ATTR_GAME_TOURNAMENT,
     CONF_FILTER_TEAM,
     ENDPOINT_TEAMS,
+    ATTR_GAME_SERIES,
+    ATTR_GAME_OPPONENTS,
 )
 
 from homeassistant.components.sensor import PLATFORM_SCHEMA
@@ -131,9 +132,10 @@ class UpcomingGamesSensor(Entity):
         return {
             ATTR_GAMES_LIST: [
                 {
-                    ATTR_GAME_NAME: game.name,
+                    ATTR_GAME_OPPONENTS: [game.opponents[0], game.opponents[1]],
                     ATTR_GAME_LEAGUE: game.league,
                     ATTR_GAME_TOURNAMENT: game.tournament,
+                    ATTR_GAME_SERIES: game.series,
                     ATTR_GAME_BEGIN_AT: game.begin_at,
                     ATTR_GAME_STREAM_URL: game.stream_url,
                 }
@@ -148,11 +150,18 @@ class UpcomingGamesSensor(Entity):
 
 class UpcomingGame:
     def __init__(
-        self, name: str, league: str, tournament: str, begin_at: str, stream_url: str
+        self,
+        opponents: tuple,
+        league: str,
+        tournament: str,
+        series: str,
+        begin_at: str,
+        stream_url: str,
     ):
-        self.name = name
+        self.opponents = opponents
         self.league = league
         self.tournament = tournament
+        self.series = series
         self.begin_at = begin_at
         self.stream_url = stream_url
 
@@ -213,9 +222,13 @@ class APIManager:
             for game in response:
                 result.append(
                     UpcomingGame(
-                        game["name"],
+                        (
+                            game["opponents"][0]["opponent"]["name"],
+                            game["opponents"][1]["opponent"]["name"],
+                        ),
                         game["league"]["name"],
                         game["tournament"]["name"],
+                        game["serie"]["name"],
                         game["begin_at"],
                         game["official_stream_url"],
                     )
