@@ -6,15 +6,17 @@
 #### Provides information about upcoming esports matches from Pandascore
 
 ### Features
-- Details about upcoming matches for a game
+- Details about upcoming matches for a videogame
 - Filter by team
 
 ### Provided Data
 #### Value
 - Count of total upcoming games
 #### Attributes
-- `games[]`: List of upcoming games
-  - `opponents[]`: List of opponent names
+- `matches[]`: List of upcoming games
+  - `opponents[]`: List of opponents
+    - `name`: Opponent name
+    - `image_url`: URL to Pandascore-hosted opponent logo image
   - `begin_at`: Expected match start in ISO 8601 format
   - `stream_url`: URL of stream (e.g. Twitch) for this game
   - `league`: e.g. Asia-Pacific League

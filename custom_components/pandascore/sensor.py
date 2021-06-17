@@ -15,21 +15,23 @@ from .const.const import (
     CONF_REFRESH_INTERVAL,
     ENDPOINT_BASE,
     SENSOR_NAME_PREFIX,
-    ATTR_GAMES_LIST,
+    ATTR_MATCHES_LIST,
     ENDPOINT_UPCOMING_MATCHES,
     UNIQUE_ID_PREFIX,
     UNIQUE_ID_UPCOMING,
     SENSOR_NAME_UPCOMING,
     CONF_MAX_UPCOMING_GAMES,
-    ATTR_GAME_BEGIN_AT,
-    ATTR_GAME_STREAM_URL,
+    ATTR_MATCH_BEGIN_AT,
+    ATTR_MATCH_STREAM_URL,
     CONF_SUPPORTED_GAMES,
-    ATTR_GAME_LEAGUE,
-    ATTR_GAME_TOURNAMENT,
+    ATTR_MATCH_LEAGUE,
+    ATTR_MATCH_TOURNAMENT,
     CONF_FILTER_TEAM,
     ENDPOINT_TEAMS,
-    ATTR_GAME_SERIES,
-    ATTR_GAME_OPPONENTS,
+    ATTR_MATCH_SERIES,
+    ATTR_MATCH_OPPONENTS,
+    ATTR_MATCH_OPPONENT_NAME,
+    ATTR_MATCH_OPPONENT_IMAGE_URL,
 )
 
 from homeassistant.components.sensor import PLATFORM_SCHEMA
@@ -130,14 +132,20 @@ class UpcomingGamesSensor(Entity):
     @property
     def device_state_attributes(self):
         return {
-            ATTR_GAMES_LIST: [
+            ATTR_MATCHES_LIST: [
                 {
-                    ATTR_GAME_OPPONENTS: [game.opponents[0], game.opponents[1]],
-                    ATTR_GAME_LEAGUE: game.league,
-                    ATTR_GAME_TOURNAMENT: game.tournament,
-                    ATTR_GAME_SERIES: game.series,
-                    ATTR_GAME_BEGIN_AT: game.begin_at,
-                    ATTR_GAME_STREAM_URL: game.stream_url,
+                    ATTR_MATCH_OPPONENTS: [
+                        {
+                            ATTR_MATCH_OPPONENT_NAME: opponent.name,
+                            ATTR_MATCH_OPPONENT_IMAGE_URL: opponent.image_url,
+                        }
+                        for opponent in game.opponents
+                    ],
+                    ATTR_MATCH_LEAGUE: game.league,
+                    ATTR_MATCH_TOURNAMENT: game.tournament,
+                    ATTR_MATCH_SERIES: game.series,
+                    ATTR_MATCH_BEGIN_AT: game.begin_at,
+                    ATTR_MATCH_STREAM_URL: game.stream_url,
                 }
                 for game in self._upcoming_games
             ]
@@ -148,10 +156,16 @@ class UpcomingGamesSensor(Entity):
         self._state = len(self._upcoming_games)
 
 
+class Team:
+    def __init__(self, name: str, image_url: str):
+        self.name = name
+        self.image_url = image_url
+
+
 class UpcomingGame:
     def __init__(
         self,
-        opponents: tuple,
+        opponents: List[Team],
         league: str,
         tournament: str,
         series: str,
@@ -222,10 +236,13 @@ class APIManager:
             for game in response:
                 result.append(
                     UpcomingGame(
-                        (
-                            game["opponents"][0]["opponent"]["name"],
-                            game["opponents"][1]["opponent"]["name"],
-                        ),
+                        [
+                            Team(
+                                opponent["opponent"]["name"],
+                                opponent["opponent"]["image_url"],
+                            )
+                            for opponent in game["opponents"]
+                        ],
                         game["league"]["name"],
                         game["tournament"]["name"],
                         game["serie"]["name"],
